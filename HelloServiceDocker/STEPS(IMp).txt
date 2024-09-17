@@ -1,0 +1,39 @@
+steps:
+1) Open the pom.xml
+2) write the <finalName> tag under build section with any short name (why short name because ...we need the file name to be keeping in docker file ...)
+3) create a dockerfile with no extension and name should be dockerfile..also no need of double quotes 
+4) Inside the docker file keep the openjdk:<version> which is compatabile to ur java version
+5) Then open the run as by right clicking on the project at the left column panel 
+6) Select maven build ...
+7) Type "install" inside the goal ..also remove the pom.xml name in  just below field 
+8) if not working "clean install" no need of quotes
+9) Refresh and check in the target folder if the jar is there or not
+
+
+--------------Using port number in the application.yml----------
+1) Now open application.yml 
+2) There u give one server port lets say 8071
+NOTE:- Write the same port number in the docker file ..EXPOSE 8071...sometimes with out wrting also it will work ..but when working with aws it might not..basically follow the standard
+
+
+3) Open the terminal by right clicking on project and pressing show terminal 
+4) In terminal first type dir ..to see if there is a docker file or not ..there should be a docker file 
+5) then type docker build -t <name> .(Name must be in lower case...also on the docker desktop)
+6) docker run -d -p 9002:8071
+7) left side of colon in above step can be anything ..right side should be the number given in appication .yml
+8) now type curl localhost:9002/<endpoint given in controller> 
+9) No need of staring any or executing any project or server
+10) U wont see this in browser as we are directly running docker inside the terminal
+
+--------Doing without port number in the application.yml-----
+OR u can do it with out port number in the application.yml
+
+1) Type EXPOSE 8080 (Give full port number)
+2) Remove the application .properties contents
+3) Now type clean install in the goal of maven build
+4) DO the above 5 to 8
+
+When it is working in curl ..it will work in the browser also no need of running the service as spring boot
+
+Note:- donot give port number in the properties file 
+Create the image normally
